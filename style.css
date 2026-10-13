@@ -1,0 +1,243 @@
+/* ======================================================
+   forlong music — style.css
+   Colors are pulled from your photos. Change them in
+   section 1 and the whole site updates.
+   ====================================================== */
+
+
+/* ======================================================
+   1. COLORS & FONTS  (edit these)
+   ====================================================== */
+:root {
+  --sky:     #2f7fd3;   /* blue sky behind the guitar photo */
+  --cloud:   #f4f6fb;   /* cloud white — the box */
+  --violet:  #6b5fb5;   /* VHS purple */
+  --leaf:    #2f8a34;   /* dandelion-sticker green */
+  --cyan:    #1bbfe9;   /* the FORLONG lettering */
+  --gold:    #d9a84e;   /* guitar pickguard */
+  --ink:     #26283a;   /* main text */
+
+  --font-body: "Times New Roman", Times, serif;
+  --font-hand: "Gaegu", "Comic Sans MS", cursive;
+}
+
+
+/* ======================================================
+   2. PAGE BACKGROUND  (the wide VHS glitch image)
+   Image file: images/vhs-bg.jpg
+   "cover" stretches it to fill the screen; "fixed"
+   keeps it still while the box scrolls over it.
+   ====================================================== */
+body {
+  margin: 0;
+  padding: 16px 12px 40px;
+  background-color: var(--violet);          /* shows while loading */
+  background-image: url("images/vhs-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* Faint VHS scanlines over the whole page.
+   Delete this block if you don't want them. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 10;
+}
+
+
+/* ======================================================
+   3. LOGO  (dandelion sticker above the box)
+   The sticker image has a lot of empty space at the top,
+   so this crops to the flower and a bit of stem.
+   ====================================================== */
+.logo {
+  text-align: center;
+}
+
+.logo img {
+  width: 230px;
+  max-width: 70%;
+  aspect-ratio: 1456 / 1000;
+  object-fit: cover;
+  object-position: 50% 50%;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+}
+
+.tagline {
+  margin: 0 0 14px;
+  font-family: var(--font-hand);
+  font-size: 1.4em;
+  color: var(--cloud);
+  text-shadow: 0 0 6px var(--violet), 1px 1px 0 var(--ink);
+}
+
+
+/* ======================================================
+   4. THE CENTERED BOX
+   Slightly see-through so the VHS glitch shows behind it.
+   ====================================================== */
+.page {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  background: rgba(244, 246, 251, 0.9);
+  border: 3px solid var(--sky);
+  outline: 2px dashed var(--cyan);
+  outline-offset: 4px;
+  box-shadow: 0 0 24px rgba(107, 95, 181, 0.6);
+}
+
+
+/* ======================================================
+   5. NAVIGATION
+   ====================================================== */
+.nav {
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 1.3em;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed var(--sky);
+}
+
+
+/* ======================================================
+   6. HEADINGS, TEXT & LINKS
+   ====================================================== */
+h1, h2 {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  color: var(--sky);
+  margin: 12px 0 6px;
+}
+
+h1 { font-size: 2.4em; line-height: 1; }
+h2 { font-size: 1.7em; }
+
+a {
+  color: var(--leaf);
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--violet);
+}
+
+
+/* ======================================================
+   7. WELCOME  (text + VHS photo side by side)
+   ====================================================== */
+.welcome {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.welcome-text {
+  flex: 1;
+}
+
+/* The photo looks like a snapshot taped to the page */
+.snapshot {
+  flex: 0 0 170px;
+  margin: 16px 0 0;
+  padding: 8px 8px 24px;
+  background: #fff;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.35);
+  transform: rotate(3deg);
+}
+
+.snapshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+/* ======================================================
+   8. BANNER  (guitar-in-the-sky photo)
+   Cropped to a wide strip; object-position keeps
+   you and the guitar in frame.
+   ====================================================== */
+.banner-row {
+  margin: 20px 0;
+}
+
+.banner {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: 50% 60%;
+  border: 3px solid var(--gold);
+}
+
+
+/* ======================================================
+   9. RELEASES LIST
+   ====================================================== */
+.recent ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.recent li::before {
+  content: "✿ ";
+  color: var(--gold);
+}
+
+.tag {
+  font-size: 0.8em;
+  color: var(--violet);
+}
+
+.more {
+  margin-top: 4px;
+}
+
+
+/* ======================================================
+   10. BUTTON WALL
+   ====================================================== */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 2px dashed var(--sky);
+}
+
+.buttons img {
+  display: block;
+  image-rendering: pixelated;
+}
+
+
+/* ======================================================
+   11. PHONES
+   ====================================================== */
+@media (max-width: 520px) {
+  body  { padding: 12px 8px 32px; font-size: 16px; }
+  .page { padding: 16px; }
+
+  /* photo moves under the text */
+  .welcome  { flex-direction: column; align-items: center; }
+  .snapshot { flex: none; width: 60%; }
+}
