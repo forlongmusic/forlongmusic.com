@@ -19,22 +19,22 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body>
+<body class="flex flex-col w-full h-full">
 
   <!-- ==================================================
        2. LOGO  (the dandelion sticker, floating above the box)
        Image file: images/forlong-dandelion.png
        ================================================== -->
-  <header class="logo">
-    <a href="index.html">
+  <header class="flex flex-col self-center w-full">
+    <a class="self-center" href="index.html">
       <img src="images/forlong-dandelion.png" alt="forlong">
     </a>
-    <p class="tagline">looping, hypnotic bedroom pop</p>
+    <!-- <p class="tagline">looping, hypnotic bedroom pop</p> -->
   </header>
 
 
   <!-- The centered box that holds everything else -->
-  <div class="page">
+  <div class="max-w-2xl mx-auto p-5 bg-slate-100/90 border-3 border-sky-200 outline-2 outline-dashed outline-cyan-300 outline-offset-4 shadow-xl shadow-indigo-500/60 -mt-46 sm:-mt-96 md:-mt-120 lg:-mt-145">
 
     <!-- ==================================================
          3. NAVIGATION  (bracketed text links)
@@ -56,7 +56,7 @@
          ================================================== -->
     <section class="welcome">
       <div class="welcome-text">
-        <h1>welcome</h1>
+        <h1 class="">welcome</h1>
 
         <p>
           this is the home of <b>forlong music</b> &mdash;

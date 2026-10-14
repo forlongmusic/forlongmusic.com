@@ -69,14 +69,14 @@ body::before {
   text-align: center;
 }
 
-.logo img {
+/* .logo img {
   width: 230px;
   max-width: 70%;
   aspect-ratio: 1456 / 1000;
   object-fit: cover;
   object-position: 50% 50%;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
-}
+} */
 
 .tagline {
   margin: 0 0 14px;
