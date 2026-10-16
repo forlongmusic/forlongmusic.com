@@ -9,16 +9,30 @@
    1. COLORS & FONTS  (edit these)
    ====================================================== */
 :root {
-  --sky:     #2f7fd3;   /* blue sky behind the guitar photo */
-  --cloud:   #f4f6fb;   /* cloud white — the box */
-  --violet:  #6b5fb5;   /* VHS purple */
-  --leaf:    #2f8a34;   /* dandelion-sticker green */
-  --cyan:    #1bbfe9;   /* the FORLONG lettering */
-  --gold:    #d9a84e;   /* guitar pickguard */
-  --ink:     #26283a;   /* main text */
+  --sky: #2f7fd3;
+  /* blue sky behind the guitar photo */
+  --cloud: #f4f6fb;
+  /* cloud white — the box */
+  --violet: #6b5fb5;
+  /* VHS purple */
+  --leaf: #2f8a34;
+  /* dandelion-sticker green */
+  --cyan: #1bbfe9;
+  /* the FORLONG lettering */
+  --gold: #d9a84e;
+  /* guitar pickguard */
+  --ink: #26283a;
+  /* main text */
 
-  --font-body: "Times New Roman", Times, serif;
-  --font-hand: "Gaegu", "Comic Sans MS", cursive;
+  --font-body: "Epsy Sans", "Comic Sans MS", cursive;
+  --font-hand: "Epsy Sans", "Comic Sans MS", cursive;
+}
+
+/* Epsy Sans by Martin P. Pfeiffer (freeware), from pickafont.com */
+@font-face {
+  font-family: "Epsy Sans";
+  src: url("fonts/epsy-sans.ttf") format("truetype");
+  font-display: swap;
 }
 
 
@@ -31,14 +45,15 @@
 body {
   margin: 0;
   padding: 16px 12px 40px;
-  background-color: var(--violet);          /* shows while loading */
+  background-color: var(--violet);
+  /* shows while loading */
   background-image: url("images/vhs-bg.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  color: var(--ink);
+  color: #000;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -49,13 +64,11 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.12) 0px,
-    rgba(0, 0, 0, 0.12) 1px,
-    transparent 1px,
-    transparent 3px
-  );
+  background: repeating-linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.12) 0px,
+      rgba(0, 0, 0, 0.12) 1px,
+      transparent 1px,
+      transparent 2px);
   z-index: 10;
 }
 
@@ -107,6 +120,10 @@ body::before {
    5. NAVIGATION
    ====================================================== */
 .nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   text-align: center;
   font-family: var(--font-hand);
   font-size: 1.3em;
@@ -118,37 +135,105 @@ body::before {
 /* ======================================================
    6. HEADINGS, TEXT & LINKS
    ====================================================== */
-h1, h2 {
+h1,
+h2 {
   font-family: var(--font-hand);
   font-weight: 700;
-  color: var(--sky);
+  color: #000;
   margin: 12px 0 6px;
 }
 
-h1 { font-size: 2.4em; line-height: 1; }
-h2 { font-size: 1.7em; }
+h1 {
+  font-size: 2.4em;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1.7em;
+}
 
 a {
-  color: var(--leaf);
+  color: #333;
   font-weight: bold;
 }
 
 a:hover {
-  color: var(--violet);
+  color: #777;
 }
 
 
 /* ======================================================
    7. WELCOME  (text + VHS photo side by side)
    ====================================================== */
-.welcome {
+.welcome,
+.releases-row {
   display: flex;
   gap: 20px;
   align-items: flex-start;
 }
 
+.recent {
+  flex: 1;
+}
+
 .welcome-text {
   flex: 1;
+  font-size: 14.4px;
+  /* stays fixed; the rest of the site is slightly larger */
+}
+
+.bio {
+  margin-top: 24px;
+  font-size: 1.25em;
+  /* 25% larger than the rest of the welcome text */
+}
+
+/* Art page: a wrapping grid of polaroid-style pieces */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.gallery+.gallery {
+  margin-top: 20px;
+}
+
+.gallery .snapshot {
+  flex: 0 0 calc((100% - 40px) / 3);
+  /* three per row */
+  transform: none;
+  /* straight, not tilted */
+}
+
+/* Each frame matches its photo's shape */
+.gallery img.portrait {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.gallery img.square {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.gallery img.landscape {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.gallery figcaption {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+.contact {
+  margin-top: 24px;
+}
+
+.contact a {
+  color: var(--sky);
 }
 
 /* The photo looks like a snapshot taped to the page */
@@ -161,7 +246,8 @@ a:hover {
   transform: rotate(3deg);
 }
 
-.snapshot img {
+.snapshot img,
+.snapshot video {
   display: block;
   width: 100%;
   height: auto;
@@ -198,12 +284,12 @@ a:hover {
 
 .recent li::before {
   content: "✿ ";
-  color: var(--gold);
+  color: #888;
 }
 
 .tag {
   font-size: 0.8em;
-  color: var(--violet);
+  color: #555;
 }
 
 .more {
@@ -234,10 +320,34 @@ a:hover {
    11. PHONES
    ====================================================== */
 @media (max-width: 520px) {
-  body  { padding: 12px 8px 32px; font-size: 16px; }
-  .page { padding: 16px; }
+  body {
+    padding: 12px 8px 32px;
+    font-size: 18px;
+  }
+
+  .welcome-text {
+    font-size: 14.4px;
+  }
+
+  .page {
+    padding: 16px;
+  }
 
   /* photo moves under the text */
-  .welcome  { flex-direction: column; align-items: center; }
-  .snapshot { flex: none; width: 60%; }
+  .welcome,
+  .releases-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .snapshot {
+    flex: none;
+    width: 60%;
+  }
+
+  /* gallery: two per row on phones */
+  .gallery .snapshot {
+    flex: 0 0 calc((100% - 20px) / 2);
+    width: auto;
+  }
 }

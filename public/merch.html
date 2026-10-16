@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>art | forlong music</title>
+
+  <!-- Epsy Sans is loaded from style.css (@font-face) -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Add TailwindCSS, must be added to every page -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body
+  class="flex flex-col w-full h-full p-5 bg-indigo-500 bg-[url(images/vhs-bg.jpg)] bg-fill bg-center bg-fixed text-black text-[20px] leading-normal">
+
+  <header class="flex flex-col self-center w-full">
+    <a class="self-center" href="index.html">
+      <img src="images/forlong-dandelion.png" alt="forlong">
+    </a>
+  </header>
+
+
+  <div
+    class="max-w-2xl mx-auto p-5 bg-slate-100/90 border-3 border-sky-200 outline-2 outline-dashed outline-cyan-300 outline-offset-4 shadow-xl shadow-indigo-500/60 -mt-[50%]">
+
+    <nav class="nav">
+      <a href="https://www.instagram.com/forlongmusic?psln=MXBtYzBkdXJiaWFvaw%3D%3D&utm_source=qr" title="my ig">
+        <img src="images/ig.png" alt="instagram" width="72" height="72">
+      </a>
+      <span>
+        [<a href="index.html">home</a>]
+        [<a href="about.html">about</a>]
+        [<a href="merch.html">art</a>]
+      </span>
+      <a href="https://youtube.com/@forlongmusic" title="my yt">
+        <img src="images/yt.png" alt="youtube" width="48" height="48">
+      </a>
+    </nav>
+
+
+    <!-- ==================================================
+         ART GALLERY
+         To add a piece: copy one <figure> block, then change
+         the image file and the caption. Put image files in
+         the images folder.
+         ================================================== -->
+    <section class="art">
+      <h1>art</h1>
+
+      <!-- Portrait photos (3:4) -->
+      <div class="gallery">
+        <figure class="snapshot">
+          <img class="portrait" src="images/IMG_4670.JPG" alt="snowy trees by a frozen pond under a blue sky" loading="lazy">
+        </figure>
+        <figure class="snapshot">
+          <img class="portrait" src="images/IMG_4722.JPG" alt="person in a black coat and blue beanie by a snowy lamppost" loading="lazy">
+        </figure>
+        <figure class="snapshot">
+          <img class="portrait" src="images/geese.jpg" alt="Canada geese and a duck floating on a bright green pond" loading="lazy">
+        </figure>
+      </div>
+
+      <!-- Square photos (1:1) -->
+      <div class="gallery">
+        <figure class="snapshot">
+          <img class="square" src="images/IMG_7407.jpg" alt="collage of a blue bird flying out of a picture frame" loading="lazy">
+        </figure>
+        <figure class="snapshot">
+          <img class="square" src="images/IMG_7675%20(1)11.jpg" alt="cruise ship and a small boat on calm water, seen through a circular lens" loading="lazy">
+        </figure>
+        <figure class="snapshot">
+          <img class="square" src="images/IMG_9299.jpg" alt="collage of a large butterfly in front of an ornate frame with a blue sky" loading="lazy">
+        </figure>
+      </div>
+
+      <!-- Landscape photos (4:3) -->
+      <div class="gallery">
+        <figure class="snapshot">
+          <img class="landscape" src="images/IMG_4652.JPG" alt="broken plate and cutlery in a sink of soapy water" loading="lazy">
+        </figure>
+        <figure class="snapshot">
+          <img class="landscape" src="images/IMG_4687.JPG" alt="a cyclist riding between snowy tree trunks" loading="lazy">
+        </figure>
+        <figure class="snapshot">
+          <img class="landscape" src="images/IMG_4688.JPG" alt="people walking through a tunnel toward a snowy park" loading="lazy">
+        </figure>
+      </div>
+
+      <!-- To add a piece: copy a <figure> block into the group that matches its shape
+           (portrait, square or landscape), then change the image file and alt text. -->
+
+    </section>
+
+  </div>
+
+</body>
+
+</html>
