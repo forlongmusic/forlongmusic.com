@@ -1,0 +1,301 @@
+/* ======================================================
+   iPod mini (1st gen, green) — floating, draggable player
+   Built by ipod.js. Change the colors in the first block.
+   ====================================================== */
+.ipm {
+  /* pale, matte anodized green aluminum */
+  --ipm-green-hi: #d3e6ad;
+  --ipm-green: #c0d896;
+  --ipm-green-lo: #a9c47c;
+  --ipm-green-edge: #8eab62;
+  /* gray click wheel labels, like the 1st gen */
+  --ipm-label: #a3a5a6;
+  /* grayscale LCD, off and backlit */
+  --ipm-lcd: #c4c8bb;
+  --ipm-lcd-lit: #d3d9c9;
+  --ipm-ink: #141614;
+  --ipm-scale: 1;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  width: 160px;
+  height: 286px;
+  scale: var(--ipm-scale);
+  transform-origin: top left;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: grab;
+  font-family: "Chicago", "ChicagoFLF", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.15;
+  color: var(--ipm-ink);
+  visibility: hidden; /* shown once ipod.js has placed it */
+}
+
+.ipm.ipm-ready { visibility: visible; }
+.ipm.ipm-dragging { cursor: grabbing; }
+.ipm.ipm-dragging .ipm-body {
+  box-shadow:
+    0 24px 34px -10px rgba(0,0,0,.55),
+    0 6px 12px rgba(0,0,0,.3),
+    inset 0 1px 0 rgba(255,255,255,.45),
+    inset 0 -1px 0 rgba(0,0,0,.15);
+}
+
+.ipm *,
+.ipm *::before,
+.ipm *::after { box-sizing: border-box; }
+
+/* ---------- the aluminum body ---------- */
+.ipm-body {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background:
+    /* fine bead-blasted grain */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    /* soft light from above */
+    linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,0) 35%, rgba(0,0,0,0) 80%, rgba(0,0,0,.06)),
+    /* gently rounded sides */
+    linear-gradient(90deg,
+      var(--ipm-green-edge) 0%,
+      var(--ipm-green-lo) 2.5%,
+      var(--ipm-green) 7%,
+      var(--ipm-green-hi) 22%,
+      var(--ipm-green) 45%,
+      var(--ipm-green) 75%,
+      var(--ipm-green-lo) 94%,
+      var(--ipm-green-edge) 100%);
+  box-shadow:
+    0 14px 24px -8px rgba(0,0,0,.5),
+    0 3px 7px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.45),
+    inset 0 -1px 0 rgba(0,0,0,.15);
+  transition: box-shadow .2s;
+}
+
+/* soft sheen down the left side */
+.ipm-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 10%, rgba(255,255,255,.09) 20%, transparent 34%);
+}
+
+/* ---------- the screen ---------- */
+.ipm-bezel {
+  position: absolute;
+  top: 21px;
+  left: 50%;
+  translate: -50% 0;
+  width: 120px;
+  height: 84px;
+  padding: 5px;
+  border-radius: 6px;
+  background: #0d0e0d;
+  box-shadow:
+    0 0 0 1px rgba(60,80,35,.35),
+    0 1px 0 1px rgba(255,255,255,.3);
+}
+
+/* glass glare over the window */
+.ipm-bezel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(160deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.03) 40%, transparent 41%);
+}
+
+.ipm-lcd {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1px;
+  background-color: var(--ipm-lcd);
+  box-shadow: inset 0 0 4px rgba(0,0,0,.3);
+  transition: background-color .35s;
+}
+
+/* faint LCD pixel grid */
+.ipm-lcd::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.04) 0 1px, transparent 1px 2px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 2px);
+}
+
+.ipm.ipm-lit .ipm-lcd { background-color: var(--ipm-lcd-lit); }
+
+.ipm-titlebar {
+  flex: none;
+  display: grid;
+  grid-template-columns: 14px 1fr 14px;
+  align-items: center;
+  height: 13px;
+  padding: 0 2px;
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid var(--ipm-ink);
+}
+.ipm-titlebar svg { display: block; fill: var(--ipm-ink); }
+.ipm-battery { justify-self: end; }
+
+.ipm-view { display: none; }
+.ipm-view.ipm-on { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+
+/* Now Playing */
+.ipm-count {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 3px 0;
+  font-size: 7px;
+  font-weight: 700;
+}
+
+.ipm-line {
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  padding: 0 4px;
+}
+.ipm-line span { display: inline-block; }
+.ipm-line.ipm-marquee { text-align: left; }
+.ipm-line.ipm-marquee span { animation: ipm-marquee 7s ease-in-out infinite alternate; }
+@keyframes ipm-marquee {
+  0%, 20% { transform: translateX(0); }
+  80%, 100% { transform: translateX(var(--ipm-shift)); }
+}
+.ipm-song { margin-top: 4px; font-size: 8px; font-weight: 700; }
+.ipm-artist { margin-top: 2px; font-size: 8px; font-weight: 700; }
+
+.ipm-meter { margin: auto 3px 2px; }
+.ipm-bar {
+  position: relative;
+  height: 7px;
+  border: 1px solid var(--ipm-ink);
+}
+/* dithered fill, like the old grayscale screens */
+.ipm-fill {
+  height: 100%;
+  width: 0%;
+  background: repeating-conic-gradient(var(--ipm-ink) 0 25%, #6c7068 0 50%) 0 0 / 2px 2px;
+}
+.ipm-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1px;
+  font-size: 7px;
+  font-weight: 700;
+}
+.ipm-vol { display: none; align-items: center; gap: 3px; padding-bottom: 9px; }
+.ipm-vol .ipm-bar { flex: 1; }
+.ipm-vol svg { fill: var(--ipm-ink); flex: none; }
+.ipm.ipm-show-vol .ipm-vol { display: flex; }
+.ipm.ipm-show-vol .ipm-progress { display: none; }
+
+/* Song list */
+.ipm-list { margin: 0; padding: 0; list-style: none; }
+.ipm-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 13px;
+  padding: 0 3px;
+  font-size: 7.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ipm-list li span { overflow: hidden; text-overflow: ellipsis; }
+.ipm-list li::before { content: none !important; } /* ignore the site's flower bullets */
+.ipm-list li.ipm-sel {
+  color: var(--ipm-lcd);
+  background: var(--ipm-ink);
+}
+.ipm.ipm-lit .ipm-list li.ipm-sel { color: var(--ipm-lcd-lit); }
+.ipm-list li b { font-size: 9px; margin-left: 3px; }
+
+/* ---------- the click wheel ---------- */
+.ipm-wheel {
+  position: absolute;
+  left: 50%;
+  top: 133px;
+  translate: -50% 0;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: radial-gradient(circle at 50% 35%, #ffffff 0%, #f6f6f4 55%, #e9e9e6 100%);
+  box-shadow:
+    0 0 0 1px rgba(90,110,60,.35),
+    0 1px 1px 1px rgba(255,255,255,.35),
+    inset 0 1px 2px rgba(0,0,0,.08),
+    inset 0 -1px 1px rgba(255,255,255,.9);
+}
+
+.ipm-key {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: var(--ipm-label);
+  font: 700 7.5px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: .08em;
+  cursor: pointer;
+  transition: color .1s;
+}
+.ipm-key svg { display: block; fill: currentColor; }
+.ipm-key:active, .ipm-key.ipm-pressed { color: #6f7172; }
+.ipm-key:focus-visible,
+.ipm-center:focus-visible { outline: 2px solid var(--ipm-green-edge); outline-offset: 1px; border-radius: 4px; }
+
+.ipm-menu-key { top: 7px; left: 50%; translate: -50% 0; }
+.ipm-prev-key { left: 5px; top: 50%; translate: 0 -50%; }
+.ipm-next-key { right: 5px; top: 50%; translate: 0 -50%; }
+.ipm-play-key { bottom: 7px; left: 50%; translate: -50% 0; }
+
+.ipm-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: radial-gradient(circle at 50% 70%, #ffffff 0%, #f7f7f5 60%, #ececea 100%);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.10),
+    0 0 0 2px rgba(255,255,255,.7),
+    inset 0 1px 2px rgba(0,0,0,.10);
+}
+.ipm-center:active { background: radial-gradient(circle at 50% 70%, #f1f1ef, #e6e6e3); }
+.ipm-center:focus-visible { border-radius: 50%; }
+
+/* phones: a touch smaller */
+@media (max-width: 520px) {
+  .ipm { --ipm-scale: .9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ipm-line.ipm-marquee span { animation: none; }
+}
