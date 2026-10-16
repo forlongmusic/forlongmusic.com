@@ -18,7 +18,7 @@ const SONGS = [
     name: "Dandelion",
     artist: "forlong",
     album: "dandelion",
-    audio: "audio/Dandelion.m4a"
+    audio: "https://cdn.jsdelivr.net/gh/forlongmusic/forlongmusic.com@main/public/audio/Dandelion.m4a"
   }
 ];
 
